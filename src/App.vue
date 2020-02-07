@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link to='info'>测试一下</router-link>
+    <router-link ></router-link>
   </div>
 </template>
 
