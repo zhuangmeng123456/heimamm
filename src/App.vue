@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <router-link ></router-link>
-  </div>
+  <!-- 导入出口 -->
+  <router-view></router-view>
 </template>
 
 <script>
+
 export default {
 data() {
   return {
