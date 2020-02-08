@@ -11,7 +11,7 @@ import './style/bace.css'
 
 
 Vue.config.productionTip = false
-//注册
+//注册 下载包
 Vue.use(ElementUI)
 
 
