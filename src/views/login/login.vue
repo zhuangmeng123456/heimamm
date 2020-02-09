@@ -54,6 +54,7 @@
 </template>
 
 <script>
+
 //导入子组件地址
 import alftfrom from './components/alftfrom'
 
@@ -71,6 +72,7 @@ export default {
         ischecked: false,
         logincode: ""
       },
+      
       //非空判断
       rules: {
         password: [

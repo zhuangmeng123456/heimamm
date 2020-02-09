@@ -22,10 +22,10 @@
       <el-form-item label="图形码" :label-width="formLabelWidth">
           <el-row>
               <el-col :span="16">
-                  <el-input v-model="form.name" autocomplete="off"></el-input>
+                  <el-input  v-model="form.name" autocomplete="off"></el-input>
               </el-col>
               <el-col :span="7" :offset="1" class="register-box">
-                  <img class="register-code" src="../../../assets/login-code.png" alt="">
+                  <img @click="coderodm" class="register-code" :src="codeURL" alt="">
               </el-col>
           </el-row>
       </el-form-item>
@@ -82,6 +82,7 @@ export default {
       },
       //文本宽度
       formLabelWidth: "62px",
+      codeURL:process.env.VUE_APP_URL+'/captcha?type=sendsms',
       rules:{
          usename:[
             { required: true, message: "请输入昵称", trigger: "blur" },
@@ -107,7 +108,21 @@ export default {
       
       
     };
+  },
+  methods:{
+    coderodm(){
+      //时间蹉
+       this.codeURL = process.env.VUE_APP_URL+'/captcha?type=sendsms&'+ Date.now();
+         //随机数生成
+      // this.codeURL=process.env.VUE_APP_URL+'/captcha?type=sendsms&'+Math.random(),
+      //正规写法
+       //this.codeURL=process.env.VUE_APP_URL+'/captcha?type=sendsms&t='+Math.random(),
+
+    }
+    
+   
   }
+  
 };
 </script>
 
