@@ -19,7 +19,7 @@
         <!-- 验证码 -->
         <el-form-item prop="logincode">
         <el-row>
-          <el-col :span="17" >
+          <el-col :span="16" >
             <el-input
               placeholder="请输入验证码"
               v-model="loginform.logincode"
@@ -27,7 +27,7 @@
               class="logincode"
             ></el-input>
           </el-col>
-          <el-col :span="7">
+          <el-col :span="7" :offset="1">
             <img class="imglogin" src="../../assets/login-code.png" alt />
           </el-col>
         </el-row>
