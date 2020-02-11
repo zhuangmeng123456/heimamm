@@ -80,24 +80,9 @@
 
 //使用@代替。。/进行导入
 import { sendsms, register } from "@/api/register.js";
-//邮箱验证函数
-const checkemail = (rule, value, callback) => {
-  const req = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
-  if (req.test(value) == true) {
-    callback();
-  } else {
-    callback(new Error("邮箱地址错了检查一下"));
-  }
-};
-//手机号验证函数
-const checkphone = (rule, value, callback) => {
-  const req = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/;
-  if (req.test(value) == true) {
-    callback();
-  } else {
-    callback(new Error("手机号错误"));
-  }
-};
+
+//导入邮箱和手机号的抽离
+import { checkemail , checkphone} from "@/utils/validator.js"
 
 export default {
   data() {
@@ -244,18 +229,7 @@ export default {
             clearInterval(interId);
           }
         }, 100);
-
-        // 调用接口
-        // axios({
-        //   url: process.env.VUE_APP_URL + '/sendsms',
-        //   method: 'post',
-        //   data: {
-        //     code: this.form.code,
-        //     phone: this.form.phone
-        //   },
-        //   // 是否跨域携带cookie 默认是false
-        //   withCredentials: true
-        // })
+   
         sendsms({
           code: this.form.code,
           phone: this.form.phone

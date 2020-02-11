@@ -9,7 +9,7 @@
       </div>
       <el-form ref="loginform" :model="loginform" :rules="rules" label-width="43px">
           <!-- 手机号 -->
-        <el-form-item>
+        <el-form-item prop="phone">
           <el-input placeholder="请输入手机号" v-model="loginform.phone" prefix-icon="el-icon-user"></el-input>
         </el-form-item>
         <!-- 密码 -->
@@ -58,6 +58,8 @@
 //导入子组件地址
 import alftfrom from './components/alftfrom'
 
+
+import {  checkphone} from "@/utils/validator.js"
 export default {
   name: "login",
   //注册
@@ -75,6 +77,10 @@ export default {
       
       //非空判断
       rules: {
+          phone: [
+          { required: true, message: "请输入手机号", trigger: "blur" },
+          { validator: checkphone, trigger: "blur" }
+        ],
         password: [
           { required: true, message: "请输入密码", trigger: "blur" },
           { min: 6, max: 12, message: "密码的长度6-12位", trigger: "blur" }
