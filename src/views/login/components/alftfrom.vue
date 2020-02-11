@@ -8,8 +8,8 @@
   >
     <el-form :model="form" :rules="rules" ref="alftfrom">
       <!-- 头像模块 -->
-      <el-form-item label="头像" prop="avatar" :label-width="formLabelWidth" class="one">
-        <el-upload
+      <el-form-item label="头像" prop="avatar"  class="one">
+        <el-upload 
           class="avatar-uploader"
           :action="uploadUrl"
           :show-file-list="false"
@@ -192,13 +192,13 @@ export default {
 
       // URL.createObjectURL 生成的是本地的临时路径，刷新就没用了
       this.imageUrl = URL.createObjectURL(file.raw);
-      this.form.avtarr = res.data.file_path;
+      this.form.avatar = res.data.file_path;
       //表单的头像检验
-      this.$refs.alftfrom.validateField("avtarr");
+      this.$refs.alftfrom.validateField('avatar');
     },
     // 上传之前
     beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg" || "image/png" || "image/gif";
+      const isJPG = file.type === "image/jpeg" || "image/png" || "image/gif" || 'image/jpg' ;
       // 1024*1024 1mb
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isJPG) {

@@ -19,16 +19,13 @@
         <!-- 验证码 -->
         <el-form-item prop="logincode">
         <el-row>
-          <el-col :span="16" >
+          <el-col :span="17" >
             <el-input
-              placeholder="请输入验证码"
-              v-model="loginform.logincode"
-              prefix-icon="el-icon-key"
-              class="logincode"
+              placeholder="请输入验证码" v-model="loginform.logincode" prefix-icon="el-icon-key" class="logincode"
             ></el-input>
           </el-col>
-          <el-col :span="7" :offset="1">
-            <img class="imglogin" src="../../assets/login-code.png" alt />
+          <el-col :span="7" >
+            <img @click="changcode" class="imglogin" :src="codeURL" alt />
           </el-col>
         </el-row>
         </el-form-item>
@@ -58,8 +55,12 @@
 //导入子组件地址
 import alftfrom from './components/alftfrom'
 
+import { login } from '@/api/login.js'
 
 import {  checkphone} from "@/utils/validator.js"
+
+// 
+import { setToken } from '@/utils/token.js'
 export default {
   name: "login",
   //注册
@@ -74,12 +75,13 @@ export default {
         ischecked: false,
         logincode: ""
       },
+       codeURL: process.env.VUE_APP_URL + "/captcha?type=login",
       
       //非空判断
       rules: {
           phone: [
           { required: true, message: "请输入手机号", trigger: "blur" },
-          { validator: checkphone, trigger: "blur" }
+          { validator: checkphone, trigger: "change" }
         ],
         password: [
           { required: true, message: "请输入密码", trigger: "blur" },
@@ -93,11 +95,32 @@ export default {
     };
   },
   methods: {
+    changcode(){
+      this.codeURL =  process.env.VUE_APP_URL + "/captcha?type=login&t="+ Date.now();
+    },
       //表单验证
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$message.success("验证成功");
+           if(this.loginform.ischecked !=true){
+             return this.$message.warning('请勾选用户协议')
+           }
+           login({
+             phone: this.loginform.phone,
+             password: this.loginform.password,
+             code: this.loginform.logincode
+           }).then(res=>{
+             if (res.data.code === 200) {
+
+               this.$message.success('欢迎进入')
+               setToken(res.data.data.token)
+               this.$router.push('/index');
+
+             }else if (res.data.code === 202 ) {
+               this.$message.error(res.data.message);
+               
+             }
+           })
         } else {
           
           this.$message.error("验证失败");
