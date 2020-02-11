@@ -11,3 +11,13 @@ export function sendsms(data) {
     data
   });
 }
+//表单接口抽取
+export function register(data){
+  return axios({
+    url: process.env.VUE_APP_URL + '/register',
+    method: 'post',
+    // 是否跨域携带cookie 默认是false
+    withCredentials: true,
+    data
+  });
+}
