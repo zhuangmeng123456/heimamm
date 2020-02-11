@@ -3,15 +3,15 @@ const TOKENKEY = 'heimammToken'
 
 // 设置 token
 export function setToken (token){
-    window.localStorage.setToken(TOKENKEY,token);
+    window.localStorage.setItem(TOKENKEY,token);
 }
 // 获取token
  export function getToken(){
-     return   window.localStorage.getToken(TOKENKEY);
+  return window.localStorage.getItem(TOKENKEY);
  }
 
 
 // 删除
 export function romveToken(){
-    window.localStorage.romveToken(TOKENKEY);
+    window.localStorage.removeItem(TOKENKEY);
 }
