@@ -3,7 +3,7 @@
     <el-header class="my-header">
       <div class="left">
         <i @click="isCollapse=!isCollapse" class="el-icon-s-fold"></i>
-        <img src="..//../assets/login_logos.png" alt="" />
+        <img src="../../assets/login_logos.png" alt="" />
         <span>黑马面面</span>
       </div>
       <div class="right">
@@ -51,8 +51,8 @@
 
 <script>
 // 导入接口
-// import { info } from '../../api/index.js';
-import { info,logout } from '../../api/index'
+
+import { logout } from '@/api/index.js'
 import { romveToken } from '@/utils/token.js'
 
 export default {
@@ -66,32 +66,43 @@ export default {
       isCollapse:false
     }
   },
-  created() {
-    info().then(res=>{
-      
-      this.username = res.data.data.username;
-      // 服务器返回的头像地址不完整，需要进行拼接
-      this.userIcon =  process.env.VUE_APP_URL+"/"+res.data.data.avatar
-    })
-  },
+
   methods:{
     loginout(){
-       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+       this.$confirm('确认要退出是否继续?', '提示', {
           confirmButtonText: '狠心离开',
           cancelButtonText: '继续留下',
-          type: 'warning'
+          type: 'success'
         }).then(() => {
           logout().then(res=>{
+            window.console.log(res)
             if(res.data.code===200){
               romveToken();
               this.$router.push('/login')
             }
           })
         })
-          .catch(() => { })
+        .catch(() => {})
     }
 }
 };
+// beforeCreate(){
+
+  //   //如果没有值
+  //   if(getToken()==undefined){
+  //     //提示用户登录
+  //     this.$message.success('没有登录，请先登录');
+  //     this.$router.push('/login');
+  //   }
+  // },
+  // created() {
+  //   info().then(res=>{
+      
+  //     this.username = res.data.data.username;
+  //     // 服务器返回的头像地址不完整，需要进行拼接
+  //     this.userIcon =  process.env.VUE_APP_URL+"/"+res.data.data.avatar
+  //   })
+  // },
 
 </script>
 
@@ -134,9 +145,9 @@ export default {
     width: 200px;
     min-height: 400px;
   }
-  .my-aside {
+  // .my-aside {
    
-  }
+  // }
   .my-main {
     background: #0094ff;
   }
